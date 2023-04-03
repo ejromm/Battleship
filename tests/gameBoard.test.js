@@ -78,16 +78,37 @@ describe('gameboard', () => {
     describe('check if game over', () => {
         const newBoardFive = new GameBoard;
         newBoardFive.pushShip(true, 2, 'Battleship', 7, 5);
-        newBoardFive.pushShip(true, 2, 'Battleship-Two', 7, 7);
+        newBoardFive.pushShip(true, 2, 'Carrier', 7, 7);
         newBoardFive.recieveAttack(7, 5);
         newBoardFive.recieveAttack(8, 5);
         newBoardFive.recieveAttack(7, 7);
         newBoardFive.recieveAttack(8, 7);
         newBoardFive.checkIfGameOver(); 
-        test('if all boats are sunk, game over should be true', () => {
+        test('first boat is sunk', () => {
+            expect(newBoardFive.ships[0].sunk).toBe(true);
+        }); 
+        test('second boat is sunk', () => {
+            expect(newBoardFive.ships[1].sunk).toBe(true);
+        }); 
+        test('game over is true', () => {
             expect(newBoardFive.gameOver).toBe(true);
-        })
+        }); 
+        
 
+    }); 
+    describe('computer methods', () => {
+        const newBoardSix = new GameBoard; 
+        newBoardSix.randomComputerMoves(); 
+        describe('random computer board', () => {
+            test('ships array is full', () => {
+                expect(newBoardSix.ships.length).toBe(5);
+            }); 
+          
+        })
+        newBoardSix.randomComputerHit(); 
+        test('random computer hit', () => {
+            expect(newBoardSix.areAnyHit()).toBe(true);
+        }); 
     })
        
  
