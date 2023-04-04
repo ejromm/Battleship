@@ -1,4 +1,4 @@
-import { Ship } from "./ship";
+import { Ship } from "./ship.js";
 class GameBoard {
     constructor(board) { 
         this.board = [];
@@ -108,6 +108,19 @@ class GameBoard {
 
         }
     }
+   computerHit() {
+        if(!this.areAnyHit()) {
+            this.randomComputerHit(); 
+        }
+        else if(this.areAnyHit()) {
+            for(let i = 0; i < this.board.length; i++) {
+                for(let j = 0; j < this.board[i].length; j++) {
+                    if (board[i][j].isHit === true) {}
+                }
+            }
+
+        }
+   }
     areAnyHit() {
         for (let i = 0 ; i < this.board.length; i++) {
             for (let j = 0 ; j < this.board[i].length; j++) {

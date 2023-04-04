@@ -1,0 +1,1 @@
+(()=>{"use strict";!function(){document.querySelector(".player-header-text").textContent="Place Carrier";const t=document.querySelector("#change-direction-btn");t.textContent="Horizontal",t.addEventListener("click",(function(){"Horizontal"===t.textContent?t.textContent="Vertical":"Vertical"===t.textContent&&(t.textContent="Horizontal")}))}()})();

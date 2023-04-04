@@ -1,5 +1,5 @@
-import { GameBoard } from "../src/gameBoard";
-import { Ship } from "../src/ship";
+import { GameBoard } from "../src/gameBoard.js";
+import { Ship } from "../src/ship.js";
 describe('gameboard', () => {
     const newBoard = new GameBoard; 
     describe('inital setup', () => {
@@ -96,7 +96,7 @@ describe('gameboard', () => {
         
 
     }); 
-    describe('computer methods', () => {
+    describe('random computer methods', () => {
         const newBoardSix = new GameBoard; 
         newBoardSix.randomComputerMoves(); 
         describe('random computer board', () => {
@@ -109,7 +109,8 @@ describe('gameboard', () => {
         test('random computer hit', () => {
             expect(newBoardSix.areAnyHit()).toBe(true);
         }); 
-    })
+    }); 
+   
        
  
    

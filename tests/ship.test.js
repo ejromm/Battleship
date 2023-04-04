@@ -1,8 +1,8 @@
-import { Ship } from "../src/ship";
+import { Ship } from "../src/ship.js";
 describe('Ship' , () => {
     const ship = new Ship(4); 
     test('ship has correct length', () => {
-        expect(ship.length).toBe(4);
+        expect(ship.shipLength).toBe(4);
     }); 
     test('ship is not sunk', () => {
         expect(ship.sunk).toBe(false);
