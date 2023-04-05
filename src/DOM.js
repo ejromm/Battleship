@@ -805,11 +805,12 @@ function PlayerShips() {
                         cell.classList.add('searched-destroyer'); 
                     })
                     playerHeader.textContent = `Player`; 
-                    
+                    directionBtn.style.display = 'none';
                   
                     
                     }
 
+                    
                 }
                 else if(directionBtn.textContent === 'Vertical') {
                     const coord = this.getAttribute('id'); 
@@ -841,7 +842,7 @@ function PlayerShips() {
                             cell.classList.add('searched-destroyer'); 
                         })
                         playerHeader.textContent = `Player`; 
-                       
+                        directionBtn.style.display = 'none';
                         
                     }
                 }
