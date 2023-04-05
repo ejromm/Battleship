@@ -1,7 +1,7 @@
 import { Ship  } from "./ship";
 function PlayerShips() {
-    let shipsPlaced = 0; 
-      
+   
+    
     
     const playerHeader = document.querySelector('.player-header-text'); 
     playerHeader.textContent = `Place Carrier`
@@ -22,10 +22,12 @@ function PlayerShips() {
         }
         
     });
-    
    
-    
-    
+  
+   
+    placeCarrier();      
+      
+         
     
  
     
@@ -36,21 +38,24 @@ function PlayerShips() {
 
  function placeCarrier() {
     let isClicked = false; 
+    let placed = false; 
     const directionBtn = document.querySelector('#change-direction-btn'); 
     const playerCells = document.querySelectorAll('.player-col'); 
     const playerHeader = document.querySelector('.player-header-text')
-    if(playerHeader.textContent === 'Place Carrier') {
+    if(!placed) {
         playerCells.forEach((cell) => {
             cell.onmouseover = function () {
+                console.log(this.getAttribute('id'));
                 if(!isClicked) {
                     if(directionBtn.textContent === 'Horizontal') {
                         const coord = this.getAttribute('id'); 
                         
-                        const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                        const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                        const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
-                        const fifth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 4}`);
-                        if((second !== null && second.style.backgroundColor !== 'white') && (third !== null && third.style.backgroundColor !== 'white') && (fourth !== null && fourth.style.backgroundColor !== 'white') && (fifth !== null && fifth.style.backgroundColor !== 'white')) {
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                        const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
+                        const fifth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`);
+                        if((second !== null && second.style.backgroundColor !== 'white') && (third !== null && third.style.backgroundColor !== 'white') && (fourth !== null && fourth.style.backgroundColor !== 'white') && (fifth !== null &&fifth.style.backgroundColor !== 'white')) {
+                        
                         this.style.backgroundColor = 'white';
                         second.style.backgroundColor = 'white';
                         third.style.backgroundColor = 'white';
@@ -62,10 +67,10 @@ function PlayerShips() {
                     else if (directionBtn.textContent === 'Vertical') {
                         const coord = this.getAttribute('id'); 
                         
-                        const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                        const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                        const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
-                        const fifth = document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2))}`);
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        const fifth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                         if((second !== null && second.style.backgroundColor !== 'white') && (third !== null && third.style.backgroundColor !== 'white') && (fourth !== null && fourth.style.backgroundColor !== 'white') && (fifth !== null && fifth.style.backgroundColor !== 'white')) {
                         this.style.backgroundColor = 'white';
                         second.style.backgroundColor = 'white';
@@ -83,34 +88,28 @@ function PlayerShips() {
                     if(directionBtn.textContent === 'Horizontal') {
                         this.style.backgroundColor = 'black';
                         const coord = this.getAttribute('id'); 
-                        const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                        const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                        const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
-                        const fifth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 4}`);
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                        const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
+                        const fifth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`);
                         if(second !== null && second.style.backgroundColor !== 'black') second.style.backgroundColor = 'black';
                         if(third !== null && third.style.backgroundColor !== 'black') third.style.backgroundColor = 'black';
                         if(fourth !== null && fourth.style.backgroundColor !== 'black') fourth.style.backgroundColor = 'black';
                         if(fifth !== null && fifth.style.backgroundColor !== 'black') fifth.style.backgroundColor = 'black';
                         
-                        third.style.backgroundColor = 'black';
-                        fourth.style.backgroundColor = 'black';
-                        fifth.style.backgroundColor = 'black';
                     }
                     else if(directionBtn.textContent === 'Vertical') {
                         this.style.backgroundColor = 'black';
                         const coord = this.getAttribute('id'); 
-                        const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                        const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                        const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
-                        const fifth = document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2))}`);
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        const fifth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                         if(second !== null && second.style.backgroundColor !== 'black') second.style.backgroundColor = 'black';
                         if(third !== null && third.style.backgroundColor !== 'black') third.style.backgroundColor = 'black';
                         if(fourth !== null && fourth.style.backgroundColor !== 'black') fourth.style.backgroundColor = 'black';
                         if(fifth !== null && fifth.style.backgroundColor !== 'black') fifth.style.backgroundColor = 'black';
                         
-                        third.style.backgroundColor = 'black';
-                        fourth.style.backgroundColor = 'black';
-                        fifth.style.backgroundColor = 'black';
                     }
                     
                 }
@@ -119,11 +118,11 @@ function PlayerShips() {
             cell.addEventListener('click', function() {
                 if(directionBtn.textContent === 'Horizontal') {
                     const coord = this.getAttribute('id'); 
-                    const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                    const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                    const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
-                    const fifth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 4}`);
-                if((second !== null) && (third !== null ) && (fourth !== null ) && (fifth !== null)) {
+                    const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                    const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                    const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
+                    const fifth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`);
+                if( (this !== null && !this.classList.contains('searched-carrier')) && (second !== null && !second.classList.contains('searched-carrier')) && (third !== null && !third.classList.contains('searched-carrier') ) && (fourth !== null &&  !fourth.classList.contains('searched-carrier') ) && (fifth !== null) && !fifth.classList.contains('searched-carrier')) {
                     isClicked = true; 
                   
                     this.style.backgroundColor = 'white';
@@ -131,40 +130,43 @@ function PlayerShips() {
                     third.style.backgroundColor = 'white';
                     fourth.style.backgroundColor = 'white';
                     fifth.style.backgroundColor = 'white';
-                    this.classList.add('carrier-1'); 
-                    second.classList.add('carrier-2');
-                    third.classList.add('carrier-3');
-                    fourth.classList.add('carrier-4');
-                    fifth.classList.add('carrier-5');
-                    if(document.getElementById(`${coord[0]}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${coord[0]}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 2}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 2}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 2}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 2}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 3}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 3}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 3}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 3}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 4}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 4}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 4}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 4}`).classList.add('surrounding');
-                    if(document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 5}`)) document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 5}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 5}`)) document.getElementById(`${Number(coord[0]) -1}-${Number(coord.slice(2)) + 5}`).classList.add('surrounding');
-                    if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 5}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 5}`).classList.add('surrounding');
+                    this.classList.add('carrier-1', 'taken', 'horizontal'); 
+                    second.classList.add('carrier-2', 'taken', 'horizontal');
+                    third.classList.add('carrier-3', 'taken', 'horizontal');
+                    fourth.classList.add('carrier-4', 'taken', 'horizontal');
+                    fifth.classList.add('carrier-5', 'taken', 'horizontal');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`).classList.add('surrounding');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) -1}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`).classList.add('surrounding');
                     playerHeader.textContent = `Place Battleship`; 
-                    
+                    playerCells.forEach((cell) => {
+                        cell.classList.add('searched-carrier')
+                    })
+                    placeBattleship(); 
                     
                 }
 
                 }
                 else if(directionBtn.textContent === 'Vertical') {
                     const coord = this.getAttribute('id'); 
-                    const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                    const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                    const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
-                    const fifth = document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2))}`);
-                    if((second !== null) && (third !== null ) && (fourth !== null ) && (fifth !== null)) {
+                    const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                    const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                    const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                    const fifth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                    if( (this !== null && !this.classList.contains('searched-carrier')) && (second !== null && !second.classList.contains('searched-carrier')) && (third !== null && !third.classList.contains('searched-carrier') ) && (fourth !== null &&  !fourth.classList.contains('searched-carrier') ) && (fifth !== null) && !fifth.classList.contains('searched-carrier')) {
                         isClicked = true; 
                        
                         this.style.backgroundColor = 'white';
@@ -172,32 +174,35 @@ function PlayerShips() {
                         third.style.backgroundColor = 'white';
                         fourth.style.backgroundColor = 'white';
                         fifth.style.backgroundColor = 'white';
-                        this.classList.add('carrier-1'); 
-                        second.classList.add('carrier-2');
-                        third.classList.add('carrier-3');
-                        fourth.classList.add('carrier-4');
-                        fifth.classList.add('carrier-5');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) -1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-    
+                        this.classList.add('carrier-1', 'taken','vertical'); 
+                        second.classList.add('carrier-2' , 'taken', 'vertical');
+                        third.classList.add('carrier-3' , 'taken', 'vertical');
+                        fourth.classList.add('carrier-4' , 'taken', 'vertical');
+                        fifth.classList.add('carrier-5' , 'taken', 'vertical');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        playerCells.forEach((cell) => {
+                            cell.classList.add('searched-carrier')
+                        })
                         playerHeader.textContent = `Place Battleship`; 
-                        
+                        placeBattleship();
+                       
                         
                     }
                 }
@@ -221,12 +226,12 @@ function PlayerShips() {
                         if(directionBtn.textContent === 'Horizontal') {
                             const coord = this.getAttribute('id'); 
                            
-                            const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                            const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                            const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
-                          
-                            if((second !== null && second.style.backgroundColor !== 'white') && (third !== null && third.style.backgroundColor !== 'white') && (fourth !== null && fourth.style.backgroundColor !== 'white')) {
-                            this.style.backgroundColor = 'white';
+                            const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                            const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                            const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
+                            
+                            if((this !== null && !this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null && !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null  && !third.classList.contains('taken') && !third.classList.contains('surrounding')) && (fourth !== null && !fourth.classList.contains('taken') && !fourth.classList.contains('surrounding'))) {
+                             this.style.backgroundColor = 'white';
                             second.style.backgroundColor = 'white';
                             third.style.backgroundColor = 'white';
                             fourth.style.backgroundColor = 'white';
@@ -237,12 +242,12 @@ function PlayerShips() {
                         else if (directionBtn.textContent === 'Vertical') {
                             const coord = this.getAttribute('id'); 
                           
-                            const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                            const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                            const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
+                            const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                            const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                            const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                             
-                            if((second !== null && second.style.backgroundColor !== 'white') && (third !== null && third.style.backgroundColor !== 'white') && (fourth !== null && fourth.style.backgroundColor !== 'white')) {
-                            this.style.backgroundColor = 'white';
+                            if((!this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null &&  !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null && !third.classList.contains('taken') && !third.classList.contains('surrounding')) && (fourth !== null && !fourth.classList.contains('taken') && !fourth.classList.contains('surrounding'))) {
+                            this.style.backgroundColor = 'white'; 
                             second.style.backgroundColor = 'white';
                             third.style.backgroundColor = 'white';
                             fourth.style.backgroundColor = 'white';
@@ -256,30 +261,33 @@ function PlayerShips() {
                 cell.onmouseleave = function() {
                     if(!isClicked) {
                         if(directionBtn.textContent === 'Horizontal') {
-                            this.style.backgroundColor = 'black';
+                            if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                            
                             const coord = this.getAttribute('id'); 
-                            const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                            const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                            const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
+                            const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                            const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                            const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
                            
-                            if(second !== null && second.style.backgroundColor !== 'black') second.style.backgroundColor = 'black';
-                            if(third !== null && third.style.backgroundColor !== 'black') third.style.backgroundColor = 'black';
-                            if(fourth !== null && fourth.style.backgroundColor !== 'black') fourth.style.backgroundColor = 'black';
+                            if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                            if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                            if(fourth !== null && !fourth.classList.contains('surrounding')  && !fourth.classList.contains('taken')) fourth.style.backgroundColor = 'black';
                             
                             
                            
                            
                         }
                         else if(directionBtn.textContent === 'Vertical') {
-                            this.style.backgroundColor = 'black';
+                            if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
                             const coord = this.getAttribute('id'); 
-                            const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                            const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                            const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
+                            const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                            const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                            const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                             
-                            if(second !== null && second.style.backgroundColor !== 'black') second.style.backgroundColor = 'black';
-                            if(third !== null && third.style.backgroundColor !== 'black') third.style.backgroundColor = 'black';
-                            if(fourth !== null && fourth.style.backgroundColor !== 'black') fourth.style.backgroundColor = 'black';
+                                                     
+                            if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                            if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                            if(fourth !== null && !fourth.classList.contains('surrounding') && !fourth.classList.contains('taken')) fourth.style.backgroundColor = 'black';
+                            
                            
                             
                             
@@ -291,11 +299,11 @@ function PlayerShips() {
                 cell.addEventListener('click', function() {
                     if(directionBtn.textContent === 'Horizontal') {
                         const coord = this.getAttribute('id'); 
-                        const second = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 1}`); 
-                        const third = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 2}`);
-                        const fourth = document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 3}`);
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                        const fourth = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`);
                       
-                    if((second !== null) && (third !== null ) && (fourth !== null )) {
+                    if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-battleship')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-battleship')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-battleship') ) && (fourth !== null && !fourth.classList.contains('surrounding') && !fourth.classList.contains('taken') && !fourth.classList.contains('searched-battleship'))) {
                         isClicked = true; 
                       
                         this.style.backgroundColor = 'white';
@@ -303,70 +311,74 @@ function PlayerShips() {
                         third.style.backgroundColor = 'white';
                         fourth.style.backgroundColor = 'white';
                         
-                        this.classList.add('carrier-1'); 
-                        second.classList.add('carrier-2');
-                        third.classList.add('carrier-3');
-                        fourth.classList.add('carrier-4');
+                        this.classList.add('battleship-1', 'taken', 'horizontal'); 
+                        second.classList.add('battleship-2', 'taken' , 'horizontal');
+                        third.classList.add('battleship-3', 'taken' , 'horizontal');
+                        fourth.classList.add('battleship-4', 'taken' , 'horizontal');
                         
-                        if(document.getElementById(`${coord[0]}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${coord[0]}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 2}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 2}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 2}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 2}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 3}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 3}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 3}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 3}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 4}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 4}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 4}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 4}`).classList.add('surrounding');
-                        if(document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 4}`)) document.getElementById(`${coord[0]}-${Number(coord.slice(2)) + 5}`).classList.add('surrounding');
-            
-                        
-                        return; 
+                        if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`).classList.add('surrounding');
+                        if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 4}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 5}`).classList.add('surrounding');
+                        playerCells.forEach((cell) => {
+                            cell.classList.add('searched-battleship'); 
+                        })
+                        playerHeader.textContent = `Place Cruiser`; 
+                       
+                      
                         
                     }
     
                     }
                     else if(directionBtn.textContent === 'Vertical') {
                         const coord = this.getAttribute('id'); 
-                        const second = document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2))}`); 
-                        const third = document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2))}`);
-                        const fourth = document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2))}`);
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                         
-                        if((second !== null) && (third !== null ) && (fourth !== null )) {
+                        if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') ) && (fourth !== null && !fourth.classList.contains('surrounding') && !fourth.classList.contains('taken'))) {
                             isClicked = true; 
                             this.style.backgroundColor = 'white';
                             second.style.backgroundColor = 'white';
                             third.style.backgroundColor = 'white';
                             fourth.style.backgroundColor = 'white';
                             
-                            this.classList.add('carrier-1'); 
-                            second.classList.add('carrier-2');
-                            third.classList.add('carrier-3');
-                            fourth.classList.add('carrier-4');
+                            this.classList.add('battleship-1', 'taken', 'vertical'); 
+                            second.classList.add('battleship-2', 'taken', 'vertical');
+                            third.classList.add('battleship-3', 'taken', 'vertical');
+                            fourth.classList.add('battleship-4', 'taken', 'vertical');
                            
-                            if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2))}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0])}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) - 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) -1}`)) document.getElementById(`${Number(coord[0]) + 1}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 2}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 3}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) + 1}`)) document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) + 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) - 1}`)) document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2)) - 1}`).classList.add('surrounding');
-                            if(document.getElementById(`${Number(coord[0]) + 4}-${Number(coord.slice(2))}`)) document.getElementById(`${Number(coord[0]) + 5}-${Number(coord.slice(2))}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                            if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
               
         
-                            
-                            return; 
+                            playerHeader.textContent = `Place Cruiser`; 
+                           
+                           
                             
                         }
                     }
@@ -374,7 +386,7 @@ function PlayerShips() {
             })
         }
            
-       
+      
         
 
 
