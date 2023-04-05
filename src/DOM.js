@@ -25,7 +25,8 @@ function PlayerShips() {
    
   
    
-    placeCarrier();      
+        
+   placeCarrier();
       
          
     
@@ -45,7 +46,6 @@ function PlayerShips() {
     if(!placed) {
         playerCells.forEach((cell) => {
             cell.onmouseover = function () {
-                console.log(this.getAttribute('id'));
                 if(!isClicked) {
                     if(directionBtn.textContent === 'Horizontal') {
                         const coord = this.getAttribute('id'); 
@@ -334,8 +334,7 @@ function PlayerShips() {
                             cell.classList.add('searched-battleship'); 
                         })
                         playerHeader.textContent = `Place Cruiser`; 
-                       
-                      
+                        placeCruiser();
                         
                     }
     
@@ -346,7 +345,7 @@ function PlayerShips() {
                         const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                         const fourth = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`);
                         
-                        if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') ) && (fourth !== null && !fourth.classList.contains('surrounding') && !fourth.classList.contains('taken'))) {
+                        if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-battleship')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-battleship')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-battleship') ) && (fourth !== null && !fourth.classList.contains('surrounding') && !fourth.classList.contains('taken') && !fourth.classList.contains('searched-battleship'))) {
                             isClicked = true; 
                             this.style.backgroundColor = 'white';
                             second.style.backgroundColor = 'white';
@@ -375,17 +374,481 @@ function PlayerShips() {
                             if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
                             if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 4}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 5}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
               
-        
+                            playerCells.forEach((cell) => {
+                                cell.classList.add('searched-battleship'); 
+                            })
                             playerHeader.textContent = `Place Cruiser`; 
-                           
-                           
+                            placeCruiser();
                             
                         }
                     }
                 })
             })
         }
-           
+  function placeCruiser() {
+    let isClicked = false; 
+    const directionBtn = document.querySelector('#change-direction-btn'); 
+    const playerCells = document.querySelectorAll('.player-col'); 
+    const playerHeader = document.querySelector('.player-header-text'); 
+   
+        playerCells.forEach((cell) => {
+            cell.onmouseover = function () {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        const coord = this.getAttribute('id'); 
+                       
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                      
+                        
+                        if((this !== null && !this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null && !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null  && !third.classList.contains('taken') && !third.classList.contains('surrounding'))) {
+                         this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                        
+                        
+                        }
+                    }
+                    else if (directionBtn.textContent === 'Vertical') {
+                        const coord = this.getAttribute('id'); 
+                      
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        
+                        if((!this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null &&  !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null && !third.classList.contains('taken') && !third.classList.contains('surrounding'))) {
+                        this.style.backgroundColor = 'white'; 
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                    }
+                   
+                }
+            }
+                 
+            }
+            cell.onmouseleave = function() {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                       
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                        
+                        
+                       
+                       
+                    }
+                    else if(directionBtn.textContent === 'Vertical') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        
+                                                 
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                        
+                       
+                        
+                        
+                    }
+                    
+                }
+               
+            }
+            cell.addEventListener('click', function() {
+                if(directionBtn.textContent === 'Horizontal') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                    const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                  
+                if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-cruiser')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-cruiser')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-cruiser'))) {
+                    isClicked = true; 
+                  
+                    this.style.backgroundColor = 'white';
+                    second.style.backgroundColor = 'white';
+                    third.style.backgroundColor = 'white';
+                   
+                    
+                    this.classList.add('cruiser-1', 'taken', 'horizontal'); 
+                    second.classList.add('cruiser-2', 'taken' , 'horizontal');
+                    third.classList.add('cruiser-3', 'taken' , 'horizontal');
+                   
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    playerCells.forEach((cell) => {
+                        cell.classList.add('searched-cruiser'); 
+                    })
+                    playerHeader.textContent = `Place Submarine`; 
+                    placeSubmarine();
+                  
+                    
+                }
+
+                }
+                else if(directionBtn.textContent === 'Vertical') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                    const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                    
+                    if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-cruiser')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-cruiser')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-cruiser'))) {
+                        isClicked = true; 
+                        this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                        this.classList.add('cruiser-1', 'taken', 'vertical'); 
+                        second.classList.add('cruiser-2', 'taken', 'vertical');
+                        third.classList.add('cruiser-3', 'taken', 'vertical');
+                       
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+          
+                        playerCells.forEach((cell) => {
+                            cell.classList.add('searched-cruiser'); 
+                        })
+                        playerHeader.textContent = `Place Submarine`; 
+                        placeSubmarine();
+                        
+                    }
+                }
+            })
+        })
+
+
+
+
+
+  }         
+  function placeSubmarine() {
+    
+    let isClicked = false; 
+    const directionBtn = document.querySelector('#change-direction-btn'); 
+    const playerCells = document.querySelectorAll('.player-col'); 
+    const playerHeader = document.querySelector('.player-header-text'); 
+   
+        playerCells.forEach((cell) => {
+            cell.onmouseover = function () {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        const coord = this.getAttribute('id'); 
+                       
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                      
+                        
+                        if((this !== null && !this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null && !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null  && !third.classList.contains('taken') && !third.classList.contains('surrounding'))) {
+                         this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                        
+                        
+                        }
+                    }
+                    else if (directionBtn.textContent === 'Vertical') {
+                        const coord = this.getAttribute('id'); 
+                      
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        
+                        if((!this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null &&  !second.classList.contains('taken') && !second.classList.contains('surrounding')) && (third !== null && !third.classList.contains('taken') && !third.classList.contains('surrounding'))) {
+                        this.style.backgroundColor = 'white'; 
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                    }
+                   
+                }
+            }
+                 
+            }
+            cell.onmouseleave = function() {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                        const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                       
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                        
+                        
+                       
+                       
+                    }
+                    else if(directionBtn.textContent === 'Vertical') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                        
+                                                 
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        if(third !== null && !third.classList.contains('surrounding')  && !third.classList.contains('taken')) third.style.backgroundColor = 'black';
+                        
+                       
+                        
+                        
+                    }
+                    
+                }
+               
+            }
+            cell.addEventListener('click', function() {
+                if(directionBtn.textContent === 'Horizontal') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                    const third = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`);
+                  
+                if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-submarine')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-submarine')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-submarine'))) {
+                    isClicked = true; 
+                  
+                    this.style.backgroundColor = 'white';
+                    second.style.backgroundColor = 'white';
+                    third.style.backgroundColor = 'white';
+                   
+                    
+                    this.classList.add('submarine-1', 'taken', 'horizontal'); 
+                    second.classList.add('submarine-2', 'taken' , 'horizontal');
+                    third.classList.add('submarine-3', 'taken' , 'horizontal');
+                   
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    playerCells.forEach((cell) => {
+                        cell.classList.add('searched-submarine'); 
+                    })
+                    playerHeader.textContent = `Place Destoyer`; 
+                    placeDestroyer();
+                  
+                    
+                }
+
+                }
+                else if(directionBtn.textContent === 'Vertical') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                    const third = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`);
+                    
+                    if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-submarine')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-submarine')) && (third !== null && !third.classList.contains('surrounding') && !third.classList.contains('taken') && !third.classList.contains('searched-submarine'))) {
+                        isClicked = true; 
+                        this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        third.style.backgroundColor = 'white';
+                        
+                        this.classList.add('submarine-1', 'taken', 'vertical'); 
+                        second.classList.add('submarine-2', 'taken', 'vertical');
+                        third.classList.add('submarine-3', 'taken', 'vertical');
+                       
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+          
+                        playerCells.forEach((cell) => {
+                            cell.classList.add('searched-submarine'); 
+                        })
+                        playerHeader.textContent = `Place Destroyer`; 
+                        placeDestroyer();
+                        
+                    }
+                }
+            })
+        })
+
+
+  }
+
+  function placeDestroyer() {
+    let isClicked = false; 
+    const directionBtn = document.querySelector('#change-direction-btn'); 
+    const playerCells = document.querySelectorAll('.player-col'); 
+    const playerHeader = document.querySelector('.player-header-text'); 
+   
+        playerCells.forEach((cell) => {
+            cell.onmouseover = function () {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        const coord = this.getAttribute('id'); 
+                       
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                      
+                        
+                        if((this !== null && !this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null && !second.classList.contains('taken') && !second.classList.contains('surrounding'))) {
+                         this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        
+                        
+                        
+                        }
+                    }
+                    else if (directionBtn.textContent === 'Vertical') {
+                        const coord = this.getAttribute('id'); 
+                      
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        
+                        if((!this.classList.contains('taken') && !this.classList.contains('surrounding')) && (second !== null &&  !second.classList.contains('taken') && !second.classList.contains('surrounding'))) {
+                        this.style.backgroundColor = 'white'; 
+                        second.style.backgroundColor = 'white';
+                        
+                    }
+                   
+                }
+            }
+                 
+            }
+            cell.onmouseleave = function() {
+                if(!isClicked) {
+                    if(directionBtn.textContent === 'Horizontal') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                       
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        
+                        
+                       
+                       
+                    }
+                    else if(directionBtn.textContent === 'Vertical') {
+                        if(!this.classList.contains('surrounding') && !this.classList.contains('taken')) this.style.backgroundColor = 'black';
+                        const coord = this.getAttribute('id'); 
+                        const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                        
+                                                 
+                        if(second !== null && !second.classList.contains('surrounding')  && !second.classList.contains('taken')) second.style.backgroundColor = 'black';
+                        
+                       
+                        
+                        
+                    }
+                    
+                }
+               
+            }
+            cell.addEventListener('click', function() {
+                if(directionBtn.textContent === 'Horizontal') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`); 
+                  
+                    if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-destroyer')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-destroyer'))) {
+                    isClicked = true; 
+                  
+                    this.style.backgroundColor = 'white';
+                    second.style.backgroundColor = 'white';
+                   
+                    
+                    this.classList.add('cruiser-1', 'taken', 'horizontal'); 
+                    second.classList.add('cruiser-2', 'taken' , 'horizontal');
+                   
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    playerCells.forEach((cell) => {
+                        cell.classList.add('searched-destroyer'); 
+                    })
+                    playerHeader.textContent = `Player`; 
+                    
+                  
+                    
+                    }
+
+                }
+                else if(directionBtn.textContent === 'Vertical') {
+                    const coord = this.getAttribute('id'); 
+                    const second = document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1))}`); 
+                    
+                    if((this !== null && !this.classList.contains('surrounding') && !this.classList.contains('taken') && !this.classList.contains('searched-destroyer')) && (second !== null && !second.classList.contains('surrounding') && !second.classList.contains('taken') && !second.classList.contains('searched-destroyer'))) {
+                        isClicked = true; 
+                        this.style.backgroundColor = 'white';
+                        second.style.backgroundColor = 'white';
+                        
+                        this.classList.add('destroyer-1', 'taken', 'vertical'); 
+                        second.classList.add('destroyer-2', 'taken', 'vertical');
+                       
+                       
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-')))}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+          
+                        playerCells.forEach((cell) => {
+                            cell.classList.add('searched-destroyer'); 
+                        })
+                        playerHeader.textContent = `Player`; 
+                       
+                        
+                    }
+                }
+            })
+        })
+    }
+  
       
         
 
