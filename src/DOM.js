@@ -777,7 +777,7 @@ function PlayerShips() {
                     if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
                     if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) - 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
                     if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
-                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 3}`).classList.add('surrounding');
+                    if(document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`)) document.getElementById(`${coord.slice(0, coord.indexOf('-'))}-${Number(coord.slice(coord.indexOf('-')+1)) + 2}`).classList.add('surrounding');
                     playerGrid.classList.add('searched-destroyer')
                     playerHeader.textContent = `Player`; 
                     directionBtn.style.display = 'none';
@@ -809,7 +809,7 @@ function PlayerShips() {
                         if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) -1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 1}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
                         if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) + 1}`).classList.add('surrounding');
                         if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1)) - 1}`).classList.add('surrounding');
-                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 3}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
+                        if(document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`)) document.getElementById(`${Number(coord.slice(0, coord.indexOf('-'))) + 2}-${Number(coord.slice(coord.indexOf('-')+1))}`).classList.add('surrounding');
           
                         playerGrid.classList.add('searched-destroyer')
                         playerHeader.textContent = `Player`; 
