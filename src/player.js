@@ -1,25 +1,28 @@
 import { GameBoard } from "./gameBoard.js"
 
 class Player {
-    constructor(isComputer) {
-        this.isComputer = isComputer; 
-        this.isTurn = false; 
+    constructor() {
+        
         this.gameBoard = new GameBoard; 
     }
     setupBoard() {
-        if(this.isComputer) {
+       
             this.gameBoard.randomComputerMoves();
-        }; 
+             
+       
 
     }; 
     computerMove() {
-        if(this.isComputer) {
+        
             this.gameBoard.randomComputerHit();
-        }
+            this.gameBoard.checkIfGameOver(); 
+             
+        
     }
     recieveHit(col, row) {
         this.gameBoard.recieveAttack(col ,row);
         this.gameBoard.checkIfGameOver();
+         
     }
 
 }

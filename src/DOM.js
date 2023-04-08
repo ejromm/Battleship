@@ -1,5 +1,6 @@
 import { Ship  } from "./ship";
 import { GameBoard } from "./gameBoard";
+import { Game } from "./Game";
 function PlayerShips() {
    
     
@@ -844,28 +845,33 @@ function PlayerShips() {
         const battleshipId = battleshipSquare.getAttribute('id'); 
         const battleshipCol = Number(battleshipId.slice(0, battleshipId.indexOf('-'))) - 1; 
         const battleshipRow = Number(battleshipId.slice(battleshipId.indexOf('-') + 1)) - 1; 
-        if(battleshipSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 5, 'Battleship', battleshipCol, battleshipRow); 
-        else if(battleshipSquare.classList.contains('vertical')) playerBoard.pushShip(true, 5, 'Battleship', battleshipCol, battleshipRow); 
+        if(battleshipSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 4, 'Battleship', battleshipCol, battleshipRow); 
+        else if(battleshipSquare.classList.contains('vertical')) playerBoard.pushShip(true, 4, 'Battleship', battleshipCol, battleshipRow); 
         const cruiserSquare = document.querySelector('.cruiser-1'); 
         const cruiserId = cruiserSquare.getAttribute('id'); 
         const cruiserCol = Number(cruiserId.slice(0, cruiserId.indexOf('-'))) - 1; 
         const cruiserRow = Number(cruiserId.slice(cruiserId.indexOf('-') + 1)) - 1; 
-        if(cruiserSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 5, 'Cruiser', cruiserCol, cruiserRow); 
-        else if(cruiserSquare.classList.contains('vertical')) playerBoard.pushShip(true, 5, 'Cruiser', carrierCol, carrierRow); 
+        if(cruiserSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 3, 'Cruiser', cruiserCol, cruiserRow); 
+        else if(cruiserSquare.classList.contains('vertical')) playerBoard.pushShip(true, 3, 'Cruiser', carrierCol, carrierRow); 
         const submarineSquare = document.querySelector('.submarine-1'); 
         const submarineId = submarineSquare.getAttribute('id'); 
         const submarineCol = Number(submarineId.slice(0, submarineId.indexOf('-'))) - 1; 
         const submarineRow = Number(submarineId.slice(submarineId.indexOf('-') + 1)) - 1; 
-        if(submarineSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 5, 'Submarine', submarineCol, submarineRow); 
-        else if(submarineSquare.classList.contains('vertical')) playerBoard.pushShip(true, 5, 'Submarine', submarineCol, submarineRow); 
+        if(submarineSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 3, 'Submarine', submarineCol, submarineRow); 
+        else if(submarineSquare.classList.contains('vertical')) playerBoard.pushShip(true, 3, 'Submarine', submarineCol, submarineRow); 
         const destroyerSquare = document.querySelector('.destroyer-1'); 
         const destroyerId = destroyerSquare.getAttribute('id'); 
         const destroyerCol = Number(destroyerId.slice(0, destroyerId.indexOf('-'))) - 1; 
         const destroyerRow = Number(destroyerId.slice(destroyerId.indexOf('-') + 1)) - 1; 
-        if(destroyerSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 5, 'Destroyer', destroyerCol, destroyerRow); 
-        else if(destroyerSquare.classList.contains('vertical')) playerBoard.pushShip(true, 5, 'Destroyer', destroyerCol, destroyerRow); 
-        console.log(playerBoard.board); 
-
+        if(destroyerSquare.classList.contains('horizontal')) playerBoard.pushShip(false, 2, 'Destroyer', destroyerCol, destroyerRow); 
+        else if(destroyerSquare.classList.contains('vertical')) playerBoard.pushShip(true, 2, 'Destroyer', destroyerCol, destroyerRow); 
+      
+        const newGame = new Game ;
+        newGame.pushPlayerBoard(playerBoard); 
+        newGame.createComputer();
+        console.log(newGame.player.gameBoard); 
+        console.log(newGame.computer.gameBoard);
+        newGame.playerMoves(); 
      
   }
       

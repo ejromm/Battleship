@@ -1,6 +1,6 @@
 import { Ship } from "./ship.js";
 class GameBoard {
-    constructor(board) { 
+    constructor() { 
         this.board = [];
         this.initBoard();
         this.ships = []; 
@@ -97,34 +97,44 @@ class GameBoard {
         }
     }
     randomComputerHit() {
-        let hit = false; 
-        while (hit === false) {
-            let rndCol = Math.floor(Math.random() * 10); 
-            let rndRow = Math.floor(Math.random() * 10);
-            if(this.board[rndCol][rndRow].isHit === false) {
-                this.recieveAttack(rndCol, rndRow);
-                hit = true; 
-            }
-
-        }
-    }
-   computerHit() {
-        if(!this.areAnyHit()) {
-            this.randomComputerHit(); 
-        }
-        else if(this.areAnyHit()) {
-            for(let i = 0; i < this.board.length; i++) {
-                for(let j = 0; j < this.board[i].length; j++) {
-                    if (board[i][j].isHit === true) {}
+        let cls = '';
+        let boardNotHit = this.board.filter((a) =>  a.isHit  !== false); 
+        let rndBoardCol = boardNotHit[Math.floor(Math.random() * boardNotHit.length)];
+        let rndCell = rndBoardCol[Math.floor(Math.random() * rndBoardCol.length)]; 
+            for(let i = 0 ; i < this.board.length; i++) {
+                for(let j = 0 ; j < this.board[i].length; j++) {
+                    if (this.board[i][j] === rndCell) {
+                        let rndCol = i; 
+                        let rndRow = j; 
+                        this.recieveAttack(rndCol, rndRow);
+                         if(this.board[rndCol][rndRow].ship === null) cls = 'gray'; 
+                        else cls = 'red';
+                        const playerCells = document.querySelectorAll('.player-col'); 
+                        playerCells.forEach((cell) => {
+                            if(cell.getAttribute('id') === `${rndCol + 1}-${rndRow + 1}`) cell.style.backgroundColor = cls;
+                        })
+                      
+                    } 
                 }
             }
+           
+        
+     
+           
+                
+               
+                
+               
+              
+            
 
-        }
-   }
+        
+    }
+   
     areAnyHit() {
-        for (let i = 0 ; i < this.board.length; i++) {
-            for (let j = 0 ; j < this.board[i].length; j++) {
-                if (this.board[i][j].isHit === true) {
+        for (let x = 0 ; i < this.board.length; i++) {
+            for (let q = 0 ; j < this.board[x].length; j++) {
+                if (this.board[x][q].isHit === true) {
                     return true; 
                 }
             }
